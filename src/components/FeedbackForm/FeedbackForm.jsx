@@ -1,17 +1,31 @@
 import S from "./FeedbackForm.module.css";
 
-export function FeedbackForm({ onChange }) {
-  const onFieldChange = (name) => (event) => {
-    console.log(name, event);
+export function FeedbackForm({ onChange, onSubmit }) {
+  const onFieldChange = (event) => {
+    const { target } = event;
+    const { name, value } = target;
+
+    onChange?.(name, value);
+  };
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+    const { target } = event;
+
+    const formData = new FormData(target);
+    const data = Object.fromEntries(formData);
+
+    onSubmit?.(data);
   };
   return (
-    <div className={S.container}>
+    <form className={S.container} onSubmit={onFormSubmit}>
       <div className={S.group}>
         <input
           type="text"
           placeholder="Ваше имя"
           className={S.input}
-          onChange={onFieldChange("username")}
+          name="username"
+          onChange={onFieldChange}
+          required
         />
       </div>
       <div className={S.group}>
@@ -19,22 +33,29 @@ export function FeedbackForm({ onChange }) {
           type="email"
           placeholder="Email"
           className={S.input}
-          onChange={onFieldChange("email")}
+          name="email"
+          onChange={onFieldChange}
+          required
         />
       </div>
       <div className={S.group}>
         <textarea
           placeholder="Ваше сообщение"
           className={S.input}
-          onChange={onFieldChange("message")}
+          name="message"
+          onChange={onFieldChange}
+          required
         />
       </div>
       <div className={S.group}>
         <label className={S.checkbox}>
-          <input type="checkbox" />
+          <input type="checkbox" name="policy" required />
           Принимаю политику обработки данных
         </label>
       </div>
-    </div>
+      <div className={S.group}>
+        <button>Отправить</button>
+      </div>
+    </form>
   );
 }
