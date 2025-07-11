@@ -1,16 +1,25 @@
+import { useState } from "react";
 import "./App.css";
 import { FeedbackForm } from "./components/FeedbackForm/FeedbackForm";
 import { Modal } from "./components/Modal/Modal";
 
 function App() {
+  const [form, setForm] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const onSubmit = (data) => {
+    setForm(data);
+    setShowModal(true);
+  };
   return (
     <>
-      <FeedbackForm />
-      <Modal show>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque sed,
-        minima cum aspernatur voluptate tenetur, dicta provident minus debitis
-        rem esse enim. Tempore, doloremque veniam unde iste ipsa ea distinctio.
-      </Modal>
+      <FeedbackForm onSubmit={onSubmit} />
+      {form && (
+        <Modal title="Спасибо, что пишете!" show={showModal}>
+          {form.username}, благодарим вас за заявку! <br />
+          Мы отправим ответ на вашу почту {form.email}
+        </Modal>
+      )}
     </>
   );
 }

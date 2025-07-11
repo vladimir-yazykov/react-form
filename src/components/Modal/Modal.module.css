@@ -26,12 +26,20 @@
   right: -30px;
   top: -30px;
 
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+  line-height: 1;
+  padding-bottom: 5px;
+  box-sizing: border-box;
 
   background-color: #fff;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.title {
+  margin-top: 0;
 }
