@@ -7,6 +7,9 @@ function App() {
   const [form, setForm] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+  const closeModal = () => {
+    setShowModal(false);
+  };
   const onSubmit = (data) => {
     setForm(data);
     setShowModal(true);
@@ -15,7 +18,11 @@ function App() {
     <>
       <FeedbackForm onSubmit={onSubmit} />
       {form && (
-        <Modal title="Спасибо, что пишете!" show={showModal}>
+        <Modal
+          title="Спасибо, что пишете!"
+          show={showModal}
+          onClose={closeModal}
+        >
           {form.username}, благодарим вас за заявку! <br />
           Мы отправим ответ на вашу почту {form.email}
         </Modal>
