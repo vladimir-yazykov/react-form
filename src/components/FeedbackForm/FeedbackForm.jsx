@@ -14,6 +14,8 @@ export function FeedbackForm({ onChange, onSubmit }) {
     const formData = new FormData(target);
     const data = Object.fromEntries(formData);
 
+    target.reset();
+
     onSubmit?.(data);
   };
   return (
